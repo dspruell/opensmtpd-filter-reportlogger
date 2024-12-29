@@ -5,10 +5,12 @@ OpenSMTPD filter which logs all report output to a file.
 ## Setup
 
 1. Copy `filter-reportlogger.sh` to the smtpd(8) filter directory:
+    
     ```
     install -oroot -gbin -m0755 filter-reportlogger.sh /usr/local/libexec/smtpd/filter-reportlogger
     ```
-2. Activate the filter in smtpd.conf(5):
+3. Activate the filter in smtpd.conf(5):
+    
     ```
     filter reportlogger proc-exec "filter-reportlogger"
 

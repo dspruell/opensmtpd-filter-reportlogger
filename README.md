@@ -28,14 +28,22 @@ Currently:
 
 * The filter is implemented as a (KSH) shell program.
 * The filter registers to receive several events in the *smtp-in* subsystem.
-* The output file is a temporary file (typically written under `/tmp`).
+* The output file may be specified as either:
+    * A user-specified file path (the typical use case).
+    * A temporary file (typically written under `/tmp`). This is useful for
+      testing.
 * Debug output is generated and logged to stdout, resulting in smtpd(8) logging
-  that output in the maillog. This output includes the following:
+  that output in the maillog. This output is configurable and includes the
+  following:
     * A startup notice, including the path to the output file.
-    * A copy of every event received by the filter.
+    * Error output.
+    * Debug output, including a copy of every event received by the filter, if
+      debug logging is enabled.
+    * A report on shutdown of the program or input termination.
 
 ## Python (WIP)
 
 A work in progress Python implementation of the filter is also available
 (`filter-reportlogger.py`). This implementation doesn't currently appear to
-complete filter registration correctly.
+complete filter registration correctly and doesn't log any events to the output
+file.

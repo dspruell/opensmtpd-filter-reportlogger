@@ -80,9 +80,6 @@ report_output()
 #
 process_stream_to_output()
 {
-	# If program is terminated with SIGINT, dump output when exiting.
-	trap report_output INT
-
 	OUTFILE="$1"
 	LOG_COUNT=0
 	emit_log info "writing events from stdin to $OUTFILE"
@@ -101,8 +98,6 @@ process_stream_to_output()
 			done
 		fi
 	done
-	# If input is terminated (typically EOF), dump output when exiting.
-	report_output
 }
 
 # Parse arguments
@@ -134,5 +129,8 @@ then
 else
 	OUTFILE="$OPT_OUTFILE"
 fi
+
+# If program is terminated, output count stat when exiting.
+trap report_output EXIT ERR
 
 process_stream_to_output "$OUTFILE"
